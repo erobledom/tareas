@@ -3,7 +3,7 @@
 /**
  * Cinco dados - cinco-dados.php
  *
- * @author Alberto López
+ * @author Eric Robledo
  *
  */
 define('NUMDADOS', 5);
@@ -24,10 +24,13 @@ $tcharDados = [
  * @param int $numdados - tamaño de array generado
  * @return int[] array generado
  */
-function generarDados(int $numdados): array
+function generarDados(int $numdados): array //Jose me ha tenido que ayudar con esto, no entiendo muy bien la sintaxis de php
 {
-  // Cambiar siempre se genera los mismo valores.
-  return [1, 2, 3, 4, 5, 6];
+  $dados = [];
+  for ($i = 0; $i < $numdados; $i++) {
+    $dados[] = rand(1, 6);
+  }
+  return $dados;
 }
 
 /**
@@ -36,9 +39,13 @@ function generarDados(int $numdados): array
  * @param array $tdados
  * @return int
  */
-function calcularPuntos( array $tdados): int
+function calcularPuntos( array $tdados): int //Suma para decidir cual es el ganador
 {
-   return 0;
+   $sumdados = array_sum($tdados);
+    $maxdado = max($tdados);
+    $mindado = min($tdados);
+    $puntos = $sumdados - $maxdado - $mindado;
+    return $puntos;
 }
 
 /**
@@ -47,10 +54,15 @@ function calcularPuntos( array $tdados): int
  * @param int $puntos2  - puntos del segundo jugador
  * @return string - Mensaje generado
  */
-function generarMensajeGanador(int $puntos1, int $puntos2): string
+function generarMensajeGanador(int $puntos1, int $puntos2): string //Mensaje de victoria, la parte mas facil del ejecicio
 {
-  
-  return " SIN RESOLVER ";
+  if ($puntos1 < $puntos2) {
+    return "GANA JUGADOR 2";
+  } else {
+    return "GANA JUGADOR 1";
+  }
+
+  return " EMPATE";
 }
 
 // Función que genera un mensaje para múltiples ganadores
@@ -60,13 +72,14 @@ function generarMensajeGanador(int $puntos1, int $puntos2): string
  * @param array $tdados - valores de los dados
  * @return string - cadena html donde se incluye el caracter asociado a valor de cada dado
  */
-function generarImagenes( array $tdados): string
+function generarImagenes( array $tdados): string 
 {
   $msg = "";
   global $tcharDados;
     // COMPLETAR SOLO MUESTRA EL VALOR DE UN DADO 
-   $valor = $tdados[0];
-   $msg .= "<span style='font-size:100px;'>" . $tcharDados[ $valor] . "</span>";
+   foreach ($tdados as $valor) {
+    $msg .= "<span style='font-size:100px;'>" . $tcharDados[ $valor] . "</span>";
+  }
   
   return $msg;
 }
@@ -126,7 +139,7 @@ $msgGanador    = generarMensajeGanador($puntosJugado1, $puntosJugado2);
   </table>
 
   <footer>
-    <p><u>By Alberto López</u></p>
+    <p><u>By Eric Robledo</u></p>
   </footer>
 </body>
 
