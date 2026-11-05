@@ -3,7 +3,7 @@ session_start();
 
 $msg="";
 
-// Entra en el casino --------------------------------
+// Entra en el casino 
 if (! isset($_SESSION['disponible'])) {
 
     if (isset($_POST['cantidadini'])) {
@@ -22,8 +22,7 @@ if (! isset($_SESSION['disponible'])) {
     }
 }
 
-// Si realiza una apuesta ----------------------------------
-// llama a procesar apuesta 
+// Si realiza una apuesta llama a procesar apuesta 
 if (isset($_POST["apostar"])) {
     $cantidad = (int)$_POST['cantidad'];
     if ($cantidad < 1) {
@@ -38,7 +37,7 @@ if (isset($_POST["apostar"])) {
 // Cambiar disponible --> VALOR DE SESSION
 $disponible = $_SESSION['disponible'];
 
-// Si abandona o ya no le queda dinero -------------------------
+// Si abandona o ya no le queda dinero 
 if (isset($_POST["dejar"]) || ($_SESSION["disponible"] <= 0) ) {
     require_once "despedida.php";
     session_destroy();
